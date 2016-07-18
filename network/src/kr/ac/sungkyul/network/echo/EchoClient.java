@@ -1,4 +1,4 @@
-package kr.ac.sungkyul.network.test;
+package kr.ac.sungkyul.network.echo;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,8 +6,9 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Scanner;
 
-public class TCPClient {
+public class EchoClient {
 	private static final String SERVER_IP = "220.67.115.224";
 	private static final int SERVER_PORT = 1000;
 
@@ -24,20 +25,25 @@ public class TCPClient {
 			InputStream is = socket.getInputStream();
 			OutputStream os = socket.getOutputStream();
 
-			String data = "Hello World!\n";
-			os.write(data.getBytes("utf-8"));
-
+			Scanner scanner = new Scanner(System.in);
 			// 5. 데이터 읽기
-			byte[] buffer = new byte[256];
-			int readBytes = is.read(buffer); // blocking
-			if (readBytes <= -1) { // 서버가 연결을 끊음
-				System.out.println("[Client] closed by Server");
-				return;
+			while (true) {
+				System.out.print(">> ");
+				String data = scanner.nextLine();
+				if (data.equals("exit")) {
+					break;
+				}
+				os.write(data.getBytes("utf-8"));
+				byte[] buffer = new byte[256];
+				int readBytes = is.read(buffer); // blocking
+				if (readBytes <= -1) { // 서버가 연결을 끊음
+					System.out.println("[Client] closed by Server");
+					return;
+				}
+				data = new String(buffer, 0, readBytes, "utf-8");
+				
+				System.out.println(">> " + data);
 			}
-
-			data = new String(buffer, 0, readBytes, "utf-8");
-			System.out.println("[Client] Received : " + data);
-
 		} catch (SocketException e) {
 			System.out.println("[Client] 비정상적으로 서버로부터 연결이 끊어졌습니다.");
 		} catch (IOException e) {
