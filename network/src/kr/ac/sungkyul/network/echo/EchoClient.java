@@ -42,7 +42,7 @@ public class EchoClient {
 				}
 				data = new String(buffer, 0, readBytes, "utf-8");
 				
-				System.out.println(">> " + data);
+				System.out.println("<< " + data);
 			}
 		} catch (SocketException e) {
 			System.out.println("[Client] 비정상적으로 서버로부터 연결이 끊어졌습니다.");
