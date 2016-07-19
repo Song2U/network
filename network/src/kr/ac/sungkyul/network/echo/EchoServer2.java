@@ -39,8 +39,8 @@ public class EchoServer2 {
 				 * InputStream is = socket.getInputStream(); OutputStream os =
 				 * socket.getOutputStream();
 				 */
-				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
+				PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
 
 				// 6. 데이터 읽기
 				while (true) {

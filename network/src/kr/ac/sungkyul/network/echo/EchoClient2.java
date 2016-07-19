@@ -37,7 +37,8 @@ public class EchoClient2 {
 				System.out.print(">> ");
 
 				String data = scanner.nextLine(); // 문자열 입력을 읽어냄
-				if ("exit".equals(data)) { // exit 문자열이 들어오면 프로그램 종료
+				if ("exit".equals(data)) {
+					System.out.println("[Client] 서버와의 연결을 종료합니다.");// exit 문자열이 들어오면 프로그램 종료
 					break;
 				}
 				// os.write(data.getBytes("utf-8"));
@@ -46,7 +47,7 @@ public class EchoClient2 {
 				// 메시지 보내기
 				pw.println(data);
 				// 메세지 다시 받기
-				String dataEcho = br.readLine();
+				String dataEcho = br.readLine(); // TCP는 여기에 Block되어있어 다중처리를 할 수 없음
 				if (dataEcho == null) { // 서버가 연결을 끊음
 					System.out.println("[Client] closed by Server");
 					break;
