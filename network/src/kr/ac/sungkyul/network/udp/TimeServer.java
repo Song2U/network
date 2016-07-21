@@ -14,7 +14,7 @@ public class TimeServer {
 
 	public static void main(String[] args) {
 		DatagramSocket socket = null;
-
+		String data = null;
 		try {
 			socket = new DatagramSocket(1000);
 			while (true) {
@@ -28,7 +28,11 @@ public class TimeServer {
 				System.out.println("클라이언트 요청 : " + message);
 
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
-				String data = format.format(new Date());
+				if ("".equals(message)) {
+					data = format.format(new Date());
+				} else {
+					data = "잘못된 명령어 입니다.";
+				}
 				byte[] sendTime = data.getBytes(StandardCharsets.UTF_8);
 				DatagramPacket sendPacket = new DatagramPacket(sendTime, sendTime.length,
 						new InetSocketAddress(receivePacket.getAddress(), receivePacket.getPort()));

@@ -30,7 +30,7 @@ public class TimeClient {
 			socket.receive(receivePacket);// block
 
 			String data = new String(receivePacket.getData(), 0, receivePacket.getLength(), StandardCharsets.UTF_8);
-			System.out.println("서버 시간 : " + data);
+			System.out.println("[Server] : " + data);
 
 		} catch (SocketException e) {
 			e.printStackTrace();
