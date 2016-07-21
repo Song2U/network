@@ -17,6 +17,8 @@ public class EchoServer {
 		try {
 			serverSocket = new ServerSocket();
 
+			// Time-Wait 상태에서 포트 재할당을 가능하게 하기 위해 (서버를 빨리 껐다 켜기 위해?)
+			serverSocket.setReuseAddress(true);
 			InetAddress inetAddress = InetAddress.getLocalHost();
 			String serverAddress = inetAddress.getHostAddress();
 			InetSocketAddress inetSocketAddress = new InetSocketAddress(serverAddress, SERVER_PORT);
